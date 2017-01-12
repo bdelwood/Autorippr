@@ -333,7 +333,7 @@ def compress(config):
 
 def extras(config):
     """
-        Main function for filebotting
+        Main function for filebotting and flagging forced subs
         Does everything
         Returns nothing
     """
@@ -390,6 +390,25 @@ def extras(config):
             else:
                 log.info("Not grabbing subtitles")
                 database.update_video(dbvideo, 8)
+
+        if config['ForcedSubs']['enable']:
+            forced = mediainfo.ForcedSubs(config)
+            log.debug("Attempting to discover foreign subtitle for {}.".format(dbvideo.vidname))
+            forced.discover_forcedsubs(dbvideo)
+
+            if forced is not None:
+                log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, forced))
+                log.debug("Attempting to flag trackvfor {}: track {}".format(dbvideo.vidname, forced))
+                flagged = forced.flag_forced(dbvideo)
+            else:
+                log.debug("Did not find foreign subtitle for {}.").format(dbvideo.vidname)
+
+            if flagged:
+                log.info("Flagging success")
+            else:
+                log.debug("Flag failed.")
+
+
 
             if 'extra' in config['notification']['notify_on_state']:
                 notify.extra_complete(dbvideo)
