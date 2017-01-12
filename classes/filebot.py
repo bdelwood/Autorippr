@@ -41,6 +41,9 @@ class FileBot(object):
         vidname = re.sub(r'S(\d)', '', dbvideo.vidname)
         vidname = re.sub(r'D(\d)', '', vidname)
 
+        db = 'TheMovieDB'
+        movePath = '/home/brodi'
+
         proc = subprocess.Popen(
             [
                 'filebot',
@@ -52,7 +55,9 @@ class FileBot(object):
                 '--db',
                 '%s' % db,
                 '--output',
-                "%s" % movePath
+                "%s" % movePath,
+                '--format',
+                "{plex}"
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
