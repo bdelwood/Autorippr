@@ -394,12 +394,12 @@ def extras(config):
         if config['ForcedSubs']['enable']:
             forced = mediainfo.ForcedSubs(config)
             log.debug("Attempting to discover foreign subtitle for {}.".format(dbvideo.vidname))
-            forced.discover_forcedsubs(dbvideo)
+            track = forced.discover_forcedsubs(dbvideo)
 
-            if forced is not None:
-                log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, forced))
-                log.debug("Attempting to flag trackvfor {}: track {}".format(dbvideo.vidname, forced))
-                flagged = forced.flag_forced(dbvideo)
+            if track is not None:
+                log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
+                log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
+                flagged = forced.flag_forced(dbvideo, forced)
             else:
                 log.debug("Did not find foreign subtitle for {}.").format(dbvideo.vidname)
 
