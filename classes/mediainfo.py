@@ -83,7 +83,7 @@ class ForcedSubs(object):
 #   Main language subtitle assumed to be largest
         main_sub = subs[0]
         main_subsize = main_sub['stream_size']
-        main_sublen = int(main_sub['duration'])
+        main_sublen = float(main_sub['duration'])
 #   Checks other subs for size, duration, and if forced flag is set
         for sub in subs[1:]:
             if (
