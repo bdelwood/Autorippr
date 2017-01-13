@@ -73,7 +73,7 @@ class ForcedSubs(object):
             if data['track_type'] == 'Text' and data['language']==self.lang:
                 subs.append(data)
         if len(subs) <= 1:
-            self.log.info("Only one {} found, cannot determine foreign language track."
+            self.log.info("Only one {} subtitle found, cannot determine foreign language track."
                           .format(self.lang))
             return None
 
