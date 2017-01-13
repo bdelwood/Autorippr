@@ -400,14 +400,12 @@ def extras(config):
                 log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
                 log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
                 flagged = forced.flag_forced(dbvideo, forced)
+                if flagged:
+                    log.info("Flagging success.")
+                else:
+                    log.debug("Flag failed")
             else:
                 log.debug("Did not find foreign subtitle for {}.".format(dbvideo.vidname))
-
-            if flagged:
-                log.info("Flagging success")
-            else:
-                log.debug("Flag failed.")
-
 
 
             if 'extra' in config['notification']['notify_on_state']:
