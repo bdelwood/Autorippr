@@ -344,6 +344,22 @@ def extras(config):
     dbvideos = database.next_video_to_filebot()
 
     for dbvideo in dbvideos:
+        if config['ForcedSubs']['enable']:
+            forced = mediainfo.ForcedSubs(config)
+            log.info("Attempting to discover foreign subtitle for {}.".format(dbvideo.vidname))
+            track = forced.discover_forcedsubs(dbvideo)
+
+            if track is not None:
+                log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
+                log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
+                flagged = forced.flag_forced(dbvideo, forced)
+                if flagged:
+                    log.info("Flagging success.")
+                else:
+                    log.debug("Flag failed")
+            else:
+                log.debug("Did not find foreign subtitle for {}.".format(dbvideo.vidname))
+                
         log.info("Attempting video rename")
 
         database.update_video(dbvideo, 7)
@@ -391,21 +407,6 @@ def extras(config):
                 log.info("Not grabbing subtitles")
                 database.update_video(dbvideo, 8)
 
-        if config['ForcedSubs']['enable']:
-            forced = mediainfo.ForcedSubs(config)
-            log.info("Attempting to discover foreign subtitle for {}.".format(dbvideo.vidname))
-            track = forced.discover_forcedsubs(dbvideo)
-
-            if track is not None:
-                log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
-                log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
-                flagged = forced.flag_forced(dbvideo, forced)
-                if flagged:
-                    log.info("Flagging success.")
-                else:
-                    log.debug("Flag failed")
-            else:
-                log.debug("Did not find foreign subtitle for {}.".format(dbvideo.vidname))
 
 
             if 'extra' in config['notification']['notify_on_state']:
