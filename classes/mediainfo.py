@@ -65,7 +65,7 @@ class ForcedSubs(object):
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
         self.log.debug("I think the filepath to the media file is {}.".format(MEDIADIR))
 #        wrapper class for mediainfo tool
-        media_info = MediaInfo.parse(MEDIADIR)
+        media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
         subs = []
 #       Iterates though tracks and finds subtitles in preferred language, creates
 #       list of dictionaries
