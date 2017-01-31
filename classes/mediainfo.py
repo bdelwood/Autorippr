@@ -23,6 +23,7 @@ track files are smaller in bit size but the same length as the main language tra
 
 import os
 from pymediainfo import MediaInfo
+import pipes
 import logger
 import shlex
 import subprocess
