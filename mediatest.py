@@ -15,11 +15,9 @@ CONFIG_FILE = "{}/settings.cfg".format(
 
 config = yaml.safe_load(open(CONFIG_FILE))
 
-config['debug'] = True
+config['debug'] = arguments['--debug']
 
-config['silent'] = False
-
-log = logger.Logger("Mediatest", config['debug'], config['silent'])
+config['silent'] = arguments['--silent']
 
 filepath = os.path.dirname(sys.argv[1])
 filename = os.path.basename(sys.argv[1])
