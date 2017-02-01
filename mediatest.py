@@ -28,13 +28,15 @@ dbvideo = mediainfo.dvideo_test(filepath, filename)
 
 forced = mediainfo.ForcedSubs(config)
 
+vidname = dbvideo.filename
 
-log.info("Attempting to discover foreign subtitle for {}.".format(dbvideo.vidname))
+
+log.info("Attempting to discover foreign subtitle for {}.".format(vidname))
 track = forced.discover_forcedsubs(dbvideo)
 
 if track is not None:
-    log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
-    log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
+    log.info("Found foreign subtitle for {}: track {}".format(vidname, track))
+    log.debug("Attempting to flag track for {}: track {}".format(vidname, track))
     flagged = forced.flag_forced(dbvideo, forced)
     if flagged:
         log.info("Flagging success.")
