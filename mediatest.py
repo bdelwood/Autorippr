@@ -42,13 +42,26 @@ vidname = dbvideo.filename
 log.info("Attempting to discover foreign subtitle for {}.".format(vidname))
 track = forced.discover_forcedsubs(dbvideo)
 
-if track is not None:
-    log.info("Found foreign subtitle for {}: track {}".format(vidname, track))
-    log.debug("Attempting to flag track for {}: track {}".format(vidname, track))
-    flagged = forced.flag_forced(dbvideo, forced)
-    if flagged:
-        log.info("Flagging success.")
-    else:
-        log.debug("Flag failed")
-else:
-    log.debug("Did not find foreign subtitle for {}.".format(vidname))
+from pymedianfo import MediaInfo
+import pipes
+MEDIADIR = args.in_dir
+media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
+for track in media_info.tracks:
+    data = track.to_data()
+    if data['track_type'] == 'Text' and data['language']==self.lang:
+        print data
+        subs.append(data)
+
+
+#if track is not None:
+#    log.info("Found foreign subtitle for {}: track {}".format(vidname, track))
+#    log.debug("Attempting to flag track for {}: track {}".format(vidname, track))
+#    flagged = forced.flag_forced(dbvideo, forced)
+#    if flagged:
+#        log.info("Flagging success.")
+#    else:
+#        log.debug("Flag failed")
+#else:
+#    log.debug("Did not find foreign subtitle for {}.".format(vidname))
+
+del autorippr.me
