@@ -4,11 +4,19 @@ Created on Wed Feb 01 01:02:24 2017
 
 @author: brodi
 """
-import sys
 import os
 import autorippr
 import yaml
 from classes import mediainfo, logger
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('in_dir', type=str, nargs = '?')
+
+
+args = parser.parse_args()
+
+
 
 CONFIG_FILE = "{}/settings.cfg".format(
     os.path.dirname(os.path.abspath(__file__)))
@@ -21,8 +29,8 @@ config['silent'] = False
 
 log = logger.Logger("Mediatest", config['debug'], config['silent'])
 
-filepath = os.path.dirname(sys.argv[1])
-filename = os.path.basename(sys.argv[1])
+filepath = os.path.dirname(args.in_dir)
+filename = os.path.basename(args.in_dir)
 
 dbvideo = mediainfo.dvideo_test(filepath, filename)
 
