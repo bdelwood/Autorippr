@@ -24,7 +24,7 @@ log = logger.Logger("Mediatest", config['debug'], config['silent'])
 filepath = os.path.dirname(sys.argv[1])
 filename = os.path.basename(sys.argv[1])
 
-dbvideo = mediainfo.dbvideo_test(filepath, filename)
+dbvideo = mediainfo.dvideo_test(filepath, filename)
 
 forced = mediainfo.ForcedSubs(config)
 
