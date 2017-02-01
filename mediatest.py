@@ -51,4 +51,4 @@ if track is not None:
     else:
         log.debug("Flag failed")
 else:
-    log.debug("Did not find foreign subtitle for {}.".format(dbvideo.vidname))
+    log.debug("Did not find foreign subtitle for {}.".format(vidname))
