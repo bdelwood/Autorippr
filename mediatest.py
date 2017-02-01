@@ -8,7 +8,7 @@ import sys
 import os
 import autorippr
 import yaml
-from classes import mediainfo
+from classes import mediainfo, logger
 
 CONFIG_FILE = "{}/settings.cfg".format(
     os.path.dirname(os.path.abspath(__file__)))
