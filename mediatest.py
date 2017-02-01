@@ -46,6 +46,7 @@ from pymediainfo import MediaInfo
 import pipes
 MEDIADIR = args.in_dir
 media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
+print media_info.tracks
 for track in media_info.tracks:
     data = track.to_data()
     if data['track_type'] == 'Text' and data['language']==self.lang:
