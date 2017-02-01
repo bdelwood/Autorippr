@@ -42,7 +42,7 @@ vidname = dbvideo.filename
 log.info("Attempting to discover foreign subtitle for {}.".format(vidname))
 track = forced.discover_forcedsubs(dbvideo)
 
-from pymedianfo import MediaInfo
+from pymediainfo import MediaInfo
 import pipes
 MEDIADIR = args.in_dir
 media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
