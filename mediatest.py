@@ -45,7 +45,7 @@ track = forced.discover_forcedsubs(dbvideo)
 from pymediainfo import MediaInfo
 import pipes
 MEDIADIR = args.in_dir
-media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
+media_info = MediaInfo.parse(MEDIADIR)
 print media_info.tracks
 for track in media_info.tracks:
     data = track.to_data()
