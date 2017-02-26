@@ -50,6 +50,7 @@ media_info = MediaInfo.parse(MEDIADIR)
 #print 'tracks:', media_info.tracks
 subs = []
 for track in media_info.tracks:
+    print track
     data = track.to_data()
     print data["track_type"]
     if data['track_type'] == 'Text' and data['language'] == lang:
