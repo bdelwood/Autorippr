@@ -47,13 +47,13 @@ from pymediainfo import MediaInfo
 import pipes
 MEDIADIR = args.in_dir
 media_info = MediaInfo.parse(MEDIADIR)
-print 'tracks:', media_info.tracks
+#print 'tracks:', media_info.tracks
 subs = []
 for track in media_info.tracks:
     data = track.to_data()
     if data['track_type'] == 'Text' and data['language']==lang:
-        print data
         subs.append(data)
+    print subs
         
 #   Sort list by size of track file
     subs.sort(key=lambda sub: sub['stream_size'], reverse = True)
