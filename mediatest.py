@@ -64,14 +64,14 @@ main_subsize = main_sub['stream_size']
 main_sublen = float(main_sub['duration'])
 #   Checks other subs for size, duration, and if forced flag is set
 for sub in subs[1:]:
-    if (
-        sub['stream_size'] <= main_subsize*.1
-        and sub['forced']=='No'
-        ):
-        secondary_sub = sub
+    if sub['stream_size'] <= main_subsize*.1:
+        print "streamsize check"
+    if main_sublen*.9 <= float(sub['duration']) <= main_sublen*1.1:
+        print "length check"
+    if sub['forced'] == 'No':
+        print 'force check'
     else:
         log.info("No foreign language subtitle found, try adjusting ratio.")
-print secondary_sub['track_id']
 
 
 #if track is not None:
