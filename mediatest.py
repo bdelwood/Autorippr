@@ -67,7 +67,7 @@ for track in media_info.tracks:
     for sub in subs[1:]:
         if (
             sub['stream_size'] <= main_subsize*.1
-            and main_sublen*.9 <= sub['duration'] <= main_sublen*1.1
+            and main_sublen*.9 <= float(sub['duration']) <= main_sublen*1.1
             and sub['forced']=='No'
             ):
             secondary_sub = sub
