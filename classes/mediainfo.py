@@ -23,6 +23,7 @@ track files are smaller in bit size but the same length as the main language tra
 
 import os
 from pymediainfo import MediaInfo
+import pipes
 import logger
 import shlex
 import subprocess
@@ -92,7 +93,7 @@ class ForcedSubs(object):
         for sub in subs[1:]:
             if (
                 sub['stream_size'] <= main_subsize*self.secsub_ratio
-                and main_sublen*.9 <= sub['duration'] <= main_sublen*1.1
+                and main_sublen*.9 <= float(sub['duration']) <= main_sublen*1.1
                 and sub['forced']=='No'
                 ):
                 secondary_sub = sub
