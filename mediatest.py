@@ -48,6 +48,7 @@ import pipes
 MEDIADIR = args.in_dir
 media_info = MediaInfo.parse(MEDIADIR)
 print 'tracks:', media_info.tracks
+subs = []
 for track in media_info.tracks:
     data = track.to_data()
     if data['track_type'] == 'Text' and data['language']==lang:
