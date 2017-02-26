@@ -41,6 +41,7 @@ vidname = dbvideo.filename
 
 log.info("Attempting to discover foreign subtitle for {}.".format(vidname))
 track = forced.discover_forcedsubs(dbvideo)
+lang = 'en'
 
 from pymediainfo import MediaInfo
 import pipes
@@ -49,7 +50,7 @@ media_info = MediaInfo.parse(MEDIADIR)
 print 'tracks:', media_info.tracks
 for track in media_info.tracks:
     data = track.to_data()
-    if data['track_type'] == 'Text' and data['language']==self.lang:
+    if data['track_type'] == 'Text' and data['language']==lang:
         print data
         subs.append(data)
 
