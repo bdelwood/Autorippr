@@ -115,7 +115,7 @@ class ForcedSubs(object):
 
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
         cmd_raw = 'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(MEDIADIR, track)
-        cmd = shlex.subprocesslit(cmd_raw)
+        cmd = shlex.split(cmd_raw)
 
         proc = subprocess.Popen(
                                 cmd,
