@@ -39,7 +39,7 @@ forced = mediainfo.ForcedSubs(config)
 vidname = dbvideo.filename
 
 
-log.info("Attempting to discover foreign subtitle for {}.".format(vidname))
+log.info("Attempting to discover foreign subtitle for {} with normal function.".format(vidname))
 track = forced.discover_forcedsubs(dbvideo)
 lang = 'en'
 
