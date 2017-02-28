@@ -23,7 +23,6 @@ track files are smaller in bit size but the same length as the main language tra
 
 import os
 from pymediainfo import MediaInfo
-import pipes
 import logger
 import shlex
 import subprocess
@@ -66,7 +65,7 @@ class ForcedSubs(object):
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
         self.log.debug("I think the filepath to the media file is {}.".format(MEDIADIR))
 #        wrapper class for mediainfo tool
-        media_info = MediaInfo.parse(MEDIADIR.encode('string-escape'))
+        media_info = MediaInfo.parse(MEDIADIR.encode('unicode-escape'))
         subs = []
 #       Iterates though tracks and finds subtitles in preferred language, creates
 #       list of dictionaries
