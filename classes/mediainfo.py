@@ -117,6 +117,7 @@ class ForcedSubs(object):
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
         cmd_raw = 'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(quote(MEDIADIR), track)
         cmd = shlex.split(cmd_raw)
+        self.log.debug("mkpropedit cmd: {}".format(cmd))
 
         proc = subprocess.Popen(
                                 cmd,
@@ -124,7 +125,6 @@ class ForcedSubs(object):
                                 stderr=subprocess.PIPE
                                 )
 
-        (results, errors) = proc.communicate()
 
         if proc.returncode is not 0:
             self.log.error(
