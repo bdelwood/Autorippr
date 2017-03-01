@@ -131,6 +131,7 @@ class ForcedSubs(object):
             self.log.error(
                            "mkvpropedit (forced subtitles) returned status code {}".format(proc.returncode)
                            )
+            self.log.debug("results: {}".format(results))
             return False
 
         if len(results) is not 0:
