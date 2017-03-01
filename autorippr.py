@@ -352,7 +352,7 @@ def extras(config):
             if track is not None:
                 log.info("Found foreign subtitle for {}: track {}".format(dbvideo.vidname, track))
                 log.debug("Attempting to flag track for {}: track {}".format(dbvideo.vidname, track))
-                flagged = forced.flag_forced(dbvideo, forced)
+                flagged = forced.flag_forced(dbvideo, track)
                 if flagged:
                     log.info("Flagging success.")
                 else:
