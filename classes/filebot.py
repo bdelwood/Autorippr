@@ -1,4 +1,4 @@
-'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(MEDIADIR.encode('unicode-escape'), track)# -*- coding: utf-8 -*-
+#*- coding: utf-8 -*-
 """
 FileBot class
 
