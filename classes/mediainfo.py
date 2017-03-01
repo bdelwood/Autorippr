@@ -124,6 +124,7 @@ class ForcedSubs(object):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE
                                 )
+        self.log.debug("returncode: {}".format(proc.returncode))
 
 
         if proc.returncode is not 0:
