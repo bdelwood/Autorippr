@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(MEDIADIR.encode('unicode-escape'), track)# -*- coding: utf-8 -*-
 """
 FileBot class
 
@@ -74,6 +74,8 @@ class FileBot(object):
 
         if len(results) is not 0:
             lines = results.split("\n")
+            self.log.debug(results)
+            self.log.debug(results.split("\n"))
             for line in lines:
                 self.log.debug(line.strip())
                 if "MOVE" in line:
