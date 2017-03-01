@@ -64,7 +64,6 @@ class ForcedSubs(object):
                 Else, None
         """
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
-        self.log.debug("I think the filepath to the media file is {}.".format(MEDIADIR))
 #        wrapper class for mediainfo tool
         media_info = MediaInfo.parse(MEDIADIR.encode('unicode-escape'))
         subs = []
@@ -124,14 +123,14 @@ class ForcedSubs(object):
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE
                                 )
-        self.log.debug("returncode: {}".format(proc.returncode))
+        
+        (results, error) = proc.communicate()
 
 
         if proc.returncode is not 0:
             self.log.error(
                            "mkvpropedit (forced subtitles) returned status code {}".format(proc.returncode)
                            )
-            self.log.debug("results: {}".format(results))
             return False
 
         if len(results) is not 0:
