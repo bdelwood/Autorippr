@@ -17,6 +17,7 @@ import datetime
 import re
 import subprocess
 import time
+import os
 
 import logger
 
@@ -147,7 +148,7 @@ class MakeMKV(object):
         """
         self.path = path
 
-        fullpath = '%s/%s' % (self.path, self.vidName)
+        fullpath = os.path.join(self.path, self.vidName)
 
         proc = subprocess.Popen(
             [
