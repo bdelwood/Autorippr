@@ -445,10 +445,6 @@ if __name__ == '__main__':
     else:
         config['force_db'] = arguments['--force_db']
         
-        
-    
-    print arguments 
-
     notify = notification.Notification(
         config, config['debug'], config['silent'])
 
