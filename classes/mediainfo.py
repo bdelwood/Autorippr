@@ -28,12 +28,6 @@ import logger
 import shlex
 import subprocess
 
-
-class dvideo_test(object):
-    def __init__(self, filepath, filename):
-        self.path = filepath
-        self.filename = filename
-
 # main class that initializes settings for discovering/flagging a forced subtitle track
 # edits python's os.environ in favor of putting full string when calling executables
 class ForcedSubs(object):
