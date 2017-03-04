@@ -143,10 +143,10 @@ def rip(config):
 
             disc_title = mkv_api.get_title()
             
-            if not config['--force_db']:
+            if not config['force_db']:
                 disc_type = mkv_api.get_type()
             else:
-                disc_type = config['--force_db']
+                disc_type = config['force_db']
 
             disc_path = os.path.join(mkv_save_path, disc_title)
             if not os.path.exists(disc_path):
