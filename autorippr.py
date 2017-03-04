@@ -440,12 +440,10 @@ if __name__ == '__main__':
 
     config['silent'] = arguments['--silent']
     
-    if arguments['--force_db']:
-        assert (
-                (arguments['--force_db'] in ['tv','movie']), 
-                '{} is not a valid database'.format(arguments['--force_db'])
-                )
+    if arguments['--force_db'] and arguments['--force_db'] in ['tv','movie']:
         config['force_db'] = arguments['--force_db']
+    elif arguemnts['--force_db']:
+        raise ValueError('{} is not a valid DB.'.format(arguments['force_db']))
         
     
     print arguments 
