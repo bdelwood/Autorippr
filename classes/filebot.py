@@ -41,8 +41,6 @@ class FileBot(object):
         vidname = re.sub(r'S(\d)', '', dbvideo.vidname)
         vidname = re.sub(r'D(\d)', '', vidname)
 
-        db = 'TheMovieDB'
-        movePath = '/home/brodi'
 
         proc = subprocess.Popen(
             [
