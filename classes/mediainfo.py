@@ -23,7 +23,7 @@ track files are smaller in bit size but the same length as the main language tra
 
 import os
 from pymediainfo import MediaInfo
-import pipes
+from pipes import quote
 import logger
 import shlex
 import subprocess
@@ -64,9 +64,8 @@ class ForcedSubs(object):
                 Else, None
         """
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
-        self.log.debug("I think the filepath to the media file is {}.".format(MEDIADIR))
 #        wrapper class for mediainfo tool
-        media_info = MediaInfo.parse(pipes.quote(MEDIADIR))
+        media_info = MediaInfo.parse(MEDIADIR.encode('unicode-escape'))
         subs = []
 #       Iterates though tracks and finds subtitles in preferred language, creates
 #       list of dictionaries
@@ -93,7 +92,7 @@ class ForcedSubs(object):
         for sub in subs[1:]:
             if (
                 sub['stream_size'] <= main_subsize*self.secsub_ratio
-                and main_sublen*.9 <= sub['duration'] <= main_sublen*1.1
+                and main_sublen*.9 <= float(sub['duration']) <= main_sublen*1.1
                 and sub['forced']=='No'
                 ):
                 secondary_sub = sub
@@ -115,16 +114,18 @@ class ForcedSubs(object):
         """
 
         MEDIADIR = os.path.join(dbvideo.path, dbvideo.filename)
-        cmd_raw = 'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(MEDIADIR, track)
-        cmd = shlex.subprocesslit(cmd_raw)
+        cmd_raw = 'mkvpropedit {} --edit track:{} --set flag-forced=1'.format(quote(MEDIADIR), track)
+        cmd = shlex.split(cmd_raw)
+        self.log.debug("mkpropedit cmd: {}".format(cmd))
 
         proc = subprocess.Popen(
                                 cmd,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE
                                 )
+        
+        (results, error) = proc.communicate()
 
-        (results, errors) = proc.communicate()
 
         if proc.returncode is not 0:
             self.log.error(
