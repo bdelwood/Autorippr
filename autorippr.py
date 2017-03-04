@@ -440,7 +440,7 @@ if __name__ == '__main__':
 
     config['silent'] = arguments['--silent']
     
-    if arguments['--force_db'] not in ['tv','movie']:
+    if arguments['--force_db'] not in ['tv','movie', None]:
         raise ValueError('{} is not a valid DB.'.format(arguments['--force_db']))
     else:
         config['force_db'] = arguments['--force_db']
