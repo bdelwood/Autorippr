@@ -23,7 +23,7 @@ class FileBot(object):
     def __init__(self, debug, silent):
         self.log = logger.Logger("Filebot", debug, silent)
 
-    def rename(self, dbvideo, movePath):
+    def rename(self, dbvideo, movePath, form):
         """
             Renames video file upon successful database lookup
 
@@ -42,9 +42,7 @@ class FileBot(object):
         vidname = re.sub(r'S(\d)', '', dbvideo.vidname)
         vidname = re.sub(r'D(\d)', '', vidname)
 
-
-        proc = subprocess.Popen(
-            [
+        filebot_cmd = [
                 'filebot',
                 '-rename',
                 os.path.join(dbvideo.path, dbvideo.filename),
@@ -55,7 +53,13 @@ class FileBot(object):
                 '%s' % db,
                 '--output',
                 "%s" % movePath
-            ],
+            ]
+        
+        if form:
+            filebot_cmd.extend(('--format',form))
+
+        proc = subprocess.Popen(
+                filebot_cmd,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )

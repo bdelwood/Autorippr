@@ -344,7 +344,7 @@ def extras(config):
     """
     log = logger.Logger("Extras", config['debug'], config['silent'])
 
-    fb = filebot.FileBot(config['debug'], config['silent'])
+    fb = filebot.FileBot(config['debug'], config['silent'], config['filebot']['format'])
 
     dbvideos = database.next_video_to_filebot()
 
