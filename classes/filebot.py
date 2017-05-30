@@ -15,6 +15,7 @@ Copyright (c) 2012, Jason Millward
 import re
 import subprocess
 import logger
+import os
 
 
 class FileBot(object):
@@ -46,7 +47,7 @@ class FileBot(object):
             [
                 'filebot',
                 '-rename',
-                "%s/%s" % (dbvideo.path, dbvideo.filename),
+                os.path.join(dbvideo.path, dbvideo.filename),
                 '--q',
                 "\"%s\"" % vidname,
                 '-non-strict',
