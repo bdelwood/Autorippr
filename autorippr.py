@@ -57,7 +57,7 @@ import errno
 import os
 import subprocess
 import sys
-
+import csv
 import yaml
 from classes import *
 from tendo import singleton
@@ -215,6 +215,10 @@ def rip(config):
 
                             if 'rip' in config['notification']['notify_on_state']:
                                 notify.rip_complete(dbvideo)
+                                fields=dbvideo.vidname
+                                with open(r'vidnames', 'ab') as f:
+                                    writer = csv.writer(f)
+                                    writer.writerow(fields)
 
                         else:
                             database.update_video(dbvideo, 2)
