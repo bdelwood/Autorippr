@@ -65,8 +65,7 @@ from tendo import singleton
 __version__ = "1.7.0"
 
 me = singleton.SingleInstance()
-CONFIG_FILE = "{}/settings.cfg".format(
-    os.path.dirname(os.path.abspath(__file__)))
+CONFIG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)),"settings.cfg")
 
 notify = None
 
