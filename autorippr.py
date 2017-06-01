@@ -215,9 +215,9 @@ def rip(config):
                             if 'rip' in config['notification']['notify_on_state']:
                                 notify.rip_complete(dbvideo)
                                 fields=dbvideo.vidname
-                                with open(r'vidnames', 'ab') as f:
-                                    writer = csv.writer(f)
-                                    writer.writerow(fields)
+                                with open(r'vidnames.info', 'ab') as f:
+                                    f.write(fields + "\n")
+                                
 
                         else:
                             database.update_video(dbvideo, 2)
@@ -347,7 +347,7 @@ def extras(config):
     """
     log = logger.Logger("Extras", config['debug'], config['silent'])
 
-    fb = filebot.FileBot(config['debug'], config['silent'], config['filebot']['format'])
+    fb = filebot.FileBot(config['debug'], config['silent'])
 
     dbvideos = database.next_video_to_filebot()
 
@@ -379,7 +379,7 @@ def extras(config):
             else:
                 movePath = config['filebot']['moviePath']
 
-        status = fb.rename(dbvideo, movePath)
+        status = fb.rename(dbvideo, movePath, config['filebot']['format'])
 
         if status[0]:
             log.info("Rename success")
