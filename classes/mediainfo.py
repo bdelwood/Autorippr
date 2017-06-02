@@ -34,7 +34,7 @@ def get_runtime(direc):
     for track in media_info.tracks:
         data = track.to_data()
         if data['track_type'] == 'Video':
-            return data['duration']
+            return float(data['duration'])
 
 # main class that initializes settings for discovering/flagging a forced subtitle track
 # edits python's os.environ in favor of putting full string when calling executables
