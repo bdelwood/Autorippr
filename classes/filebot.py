@@ -85,10 +85,13 @@ class FileBot(object):
 
         if len(results) is not 0:
             lines = results.split("\n")
-            self.log.debug(results.split("\n"))
             for line in lines:
                 if line:
                     self.log.debug(line.strip())
+                    
+                if "Rename" in line:
+                    checks += 1
+                    
                 if "MOVE" in line:
                     renamedvideo = line.split("] to [", 1)[1].rstrip(']')
                     checks += 1
