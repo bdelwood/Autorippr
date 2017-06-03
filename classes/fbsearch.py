@@ -6,9 +6,26 @@ Created on Fri Jun 02 14:22:11 2017
 """
 
 import tmdbsimple as tmdb
+import re
+import wordsegment as ws
+import itertools
 tmdb.API_KEY = "ac74d516ffdc7325420400c6df03e8f0"
 
 search = tmdb.Search()
+
+def movie_search(qu, dur, tried):
+    response = search.movie(query=qu)
+    for r in search.results:
+        if r['id'] not in tried:
+            tried.append(r['id'])
+            movie = tmdb.Movies(r['id'])
+            response = movie.info()
+            runtime = movie.runtime
+            if runtime == dur:
+                return movie.title
+        else:
+            continue
+    return tried
 
 
 def query(q, dur):
@@ -28,18 +45,28 @@ def query(q, dur):
         qr = "".join(spltr)   
     tried = []
     for direction in [backward, forward]:
-        for q in direction:
-            response = search.movie(query=q)
-            for r in search.results:
-                if r['id'] not in tried:
-                    tried.append(r['id'])
-                    movie = tmdb.Movies(r['id'])
-                    response = movie.info()
-                    runtime = movie.runtime
-                    if runtime == dur:
-                        return movie.title
-        else:
-            continue
+        for qu in direction:
+            res = movie_search(qu, dur, tried)
+            if type(res) is list:
+                tried = res
+                print tried
+            else:
+                return res
+
+    if q.count(" ") == 0:
+        qlet = re.sub(r'\d+','', q)
+        seg = ws.segment(qlet)
+        for combolen in xrange(1, len(seg)):
+            for combo in itertools.combinations(seg, combolen):
+                qcomb = " ".join(combo)
+                print qcomb
+                resu = movie_search(qcomb, dur, tried)
+                if type(resu) is list:
+                    tried = resu
+                else:
+                    return resu
+                
+        
     return ""
 
 #MAybe recursion isnt rhe bes =t fo rthis job... need some way to record
