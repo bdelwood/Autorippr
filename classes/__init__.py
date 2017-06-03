@@ -5,6 +5,7 @@ __all__ = [
     'database',
     'docopt',
     'ffmpeg',
+    'fbsearch',
     'filebot',
     'handbrake',
     'logger',
@@ -14,4 +15,4 @@ __all__ = [
     'stopwatch',
     'testing',
     'utils'
-]
+    ]

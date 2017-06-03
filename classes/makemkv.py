@@ -187,13 +187,16 @@ class MakeMKV(object):
             badstrings = [
                 "failed",
                 "fail",
-                "error"
+                "error",
+                "trying"
             ]
 
             if any(x in line.lower() for x in badstrings):
                 if self.ignore_region and "RPC protection" in line:
                     self.log.warn(line)
                 elif "Failed to add angle" in line:
+                    self.log.warn(line)
+                elif "trying" in line:
                     self.log.warn(line)
                 else:
                     self.log.error(line)
