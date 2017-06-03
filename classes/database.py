@@ -136,6 +136,7 @@ def search_video_name(invid):
 
 def get_most_recent():
     video = Videos.select().order_by(Videos.vidid.desc()).get()
+    return video.vidname
 
 
 def insert_history(dbvideo, text, typeid=1):
