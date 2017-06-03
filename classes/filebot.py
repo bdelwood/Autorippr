@@ -48,7 +48,7 @@ class FileBot(object):
             self.log.debug("Attempting to find runtime. Runtime found as {} minutes"
                            .format(runtime))
             self.log.info("Searching TheMovieDB for title matching runtime.")
-            candidate = fbsearch.query_recur(vidname, runtime)
+            candidate = fbsearch.query(vidname, runtime)
             if candidate:
                 vidname = candidate
                 self.log.debug("Name found: {}".format(vidname))
