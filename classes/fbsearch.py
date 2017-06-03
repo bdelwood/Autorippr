@@ -21,7 +21,6 @@ def query(q, dur):
         spltf.pop(0)
         forward.append("".join(spltf))
         qf = "".join(spltf)
-        print qf
     while len(qr.replace(" ","")) >= 5:
         spltr = list(qr)
         spltr.pop()
