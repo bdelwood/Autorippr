@@ -134,6 +134,9 @@ def search_video_name(invid):
     vidqty = Videos.select().where(Videos.filename.startswith(invid)).count()
     return vidqty
 
+def get_most_recent():
+    video = Videos.select().order_by(Videos.vidid.desc()).get()
+
 
 def insert_history(dbvideo, text, typeid=1):
     return History.create(

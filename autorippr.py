@@ -214,10 +214,6 @@ def rip(config):
 
                             if 'rip' in config['notification']['notify_on_state']:
                                 notify.rip_complete(dbvideo)
-                                fields=dbvideo.vidname
-                                with open(r'vidnames.info', 'ab') as f:
-                                    f.write(fields + "\n")
-                                
 
                         else:
                             database.update_video(dbvideo, 2)
@@ -416,11 +412,10 @@ def extras(config):
                 database.update_video(dbvideo, 8)
 
 
-
             if 'extra' in config['notification']['notify_on_state']:
                 notify.extra_complete(dbvideo)
 
-            log.debug("Attempting to delete %s" % dbvideo.path)
+            log.debug("Attempting to delete {}".format(dbvideo.path))
 
             try:
                 os.rmdir(dbvideo.path)
