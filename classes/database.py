@@ -129,7 +129,6 @@ def next_video_to_filebot():
         Videos.filename != "None") & (Videos.filebot == 1))
     return videos
 
-
 def search_video_name(invid):
     vidqty = Videos.select().where(Videos.filename.startswith(invid)).count()
     return vidqty
@@ -138,6 +137,17 @@ def get_most_recent():
     video = Videos.select().order_by(Videos.vidid.desc()).get()
     return video.vidname
 
+def multiple_titles(dbvideo):
+    index = []
+    videos = Videos.select().where(Videos.vidname==dbvideo.vidname)
+    for video in videos:
+        index.append(video.titleindex)
+    unique = list(set(index))
+    if len(unique) != 1:
+        return True
+    else:
+        return False
+        
 
 def insert_history(dbvideo, text, typeid=1):
     return History.create(
