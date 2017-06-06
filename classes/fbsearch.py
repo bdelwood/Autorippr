@@ -49,7 +49,6 @@ def query(q, dur):
             res = movie_search(qu, dur, tried)
             if type(res) is list:
                 tried = res
-                print tried
             else:
                 return res
 
@@ -59,7 +58,6 @@ def query(q, dur):
         for combolen in xrange(1, len(seg)):
             for combo in itertools.combinations(seg, combolen):
                 qcomb = " ".join(combo)
-                print qcomb
                 resu = movie_search(qcomb, dur, tried)
                 if type(resu) is list:
                     tried = resu
