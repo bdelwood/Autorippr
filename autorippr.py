@@ -378,7 +378,7 @@ def extras(config):
         status = fb.rename(dbvideo, 
                            movePath, 
                            config['filebot']['format'],
-                           database.multiple_tracks(dbvideo))
+                           database.multiple_titles(dbvideo))
 
         if status[0]:
             log.info("Rename success")

@@ -70,11 +70,12 @@ class FileBot(object):
                 "%s" % movePath
             ]
         
-        if form:
-            if mult_title:
-                filebot_cmd.extend(('--format',form+"[{fn}]"))
-            else: 
-                filebot_cmd.extend(('--format',form))
+        if mult_title and form:
+            filebot_cmd.extend(('--format', form + ' [{fn}]'))
+        elif form: 
+            filebot_cmd.extend(('--format', form))
+        elif mult_title:
+            filebot_cmd.extend(('--format', '{ny} [{fn}]'))
 
         proc = subprocess.Popen(
                 filebot_cmd,

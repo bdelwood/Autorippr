@@ -195,8 +195,6 @@ class MakeMKV(object):
                 if self.ignore_region:
                     if "RPC protection" in line or "Region setting":
                         self.log.warn(line)
-                elif "successfully" in line:
-                        self.log.warn(line)
                 elif "Failed to add angle" in line:
                     self.log.warn(line)
                 elif "algorithm" in line:
