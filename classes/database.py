@@ -147,6 +147,13 @@ def multiple_titles(dbvideo):
         return True
     else:
         return False
+
+def get_mult_title_vids():
+    multi = []
+    for dbvideo in Videos.select():
+        if multiple_titles(dbvideo):
+            multi.append(dbvideo)
+    return multi
         
 
 def insert_history(dbvideo, text, typeid=1):
@@ -181,6 +188,12 @@ def update_video(vidobj, statusid, filename=None):
         vidobj.filename = filename
 
     vidobj.save()
+
+def update_vidname(vidobj, vidname):
+    vidobj.vidname = vidname
+    vidobj.lastupdated = datetime.now()
+    vidobj.save()
+    
 
 
 def db_integrity_check():

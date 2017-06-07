@@ -16,8 +16,6 @@ import re
 import subprocess
 import logger
 import os
-import mediainfo
-import fbsearch
 
 class FileBot(object):
 
@@ -42,18 +40,6 @@ class FileBot(object):
             db = "TheTVDB"
         else:
             db = "TheMovieDB"
-            vidpath = os.path.join(dbvideo.path, dbvideo.filename)
-            runtime = mediainfo.get_runtime(vidpath)
-            runtime = round(runtime/(60*10**3))
-            self.log.debug("Attempting to find runtime. Runtime found as {} minutes"
-                           .format(runtime))
-            self.log.info("Searching TheMovieDB for title matching runtime.")
-            candidate = fbsearch.query(vidname, runtime)
-            if candidate:
-                vidname = candidate
-                self.log.debug("Name found: {}".format(vidname))
-            else:
-                self.log.debug("Search failed. using one obtained from disc.")
             
 
 

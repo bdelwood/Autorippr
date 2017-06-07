@@ -145,7 +145,10 @@ def rip(config):
             if not config['force_db']:
                 disc_type = mkv_api.get_type()
             else:
-                disc_type = config['force_db']
+                if config['--force_db'] not in ['tv','movie', None]:
+                    raise ValueError('{} is not a valid DB.'.format(config['--force_db']))
+                else:
+                    disc_type = config['force_db']
 
             disc_path = os.path.join(mkv_save_path, disc_title)
             if not os.path.exists(disc_path):
@@ -346,6 +349,16 @@ def extras(config):
     fb = filebot.FileBot(config['debug'], config['silent'])
 
     dbvideos = database.next_video_to_filebot()
+    
+    multi = database.get_mult_title_videos()
+    
+    for dbvideo in dbvideos:
+        vidname = fbsearch.database_search(dbvideo)
+        if vidname:    
+            database.update_video(vidname)
+            if dbvideo in multi:
+                for video in multi:
+                    database.update_video(vidname)
 
     for dbvideo in dbvideos:
         if config['ForcedSubs']['enable']:
@@ -441,10 +454,8 @@ if __name__ == '__main__':
 
     config['silent'] = arguments['--silent']
     
-    if arguments['--force_db'] not in ['tv','movie', None]:
-        raise ValueError('{} is not a valid DB.'.format(arguments['--force_db']))
-    else:
-        config['force_db'] = arguments['--force_db']
+
+    config['force_db'] = arguments['--force_db']
         
     notify = notification.Notification(
         config, config['debug'], config['silent'])
