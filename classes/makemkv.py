@@ -192,8 +192,9 @@ class MakeMKV(object):
             ]
 
             if any(x in line.lower() for x in badstrings):
-                if self.ignore_region:
-                    if "RPC protection" in line or "Region setting" in line:
+                if self.ignore_region and "RPC protection" in line:
+                    self.log.warn(line)
+                if self.ignore_region and "Region setting" in line:
                         self.log.warn(line)
                 elif "Failed to add angle" in line:
                     self.log.warn(line)
