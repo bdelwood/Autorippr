@@ -355,7 +355,7 @@ def extras(config):
 
     dbvideos = database.next_video_to_filebot()
     
-    multi = database.get_mult_title_videos()
+    multi = database.get_mult_title_vids()
     
     for dbvideo in dbvideos:
         vidname = ns.database_search(dbvideo)
