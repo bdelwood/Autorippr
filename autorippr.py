@@ -192,9 +192,12 @@ def rip(config):
                                 dbvideo,
                                 "Video submitted to MakeMKV"
                             )
+                            
                             status = mkv_api.rip_disc(
                                 mkv_save_path, dvdTitle['index'])
 
+                        if status:
+                            
                             # Master_and_Commander_De_l'autre_côté_du_monde_t00.mkv become
                             # Master_and_Commander_De_l_autre_cote_du_monde_t00.mkv
                             log.debug('Rename {} to {}'.format(
@@ -206,7 +209,7 @@ def rip(config):
                                 os.path.join(dbvideo.path, dvdTitle['rename_title'])
                             )
 
-                        if status:
+
                             log.info("It took {} minute(s) to complete the ripping of {} from {}".format(
                                 t.minutes,
                                 dvdTitle['title'],
