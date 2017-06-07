@@ -358,7 +358,7 @@ def extras(config):
     multi = database.get_mult_title_videos()
     
     for dbvideo in dbvideos:
-        vidname = fbsearch.database_search(dbvideo)
+        vidname = ns.database_search(dbvideo)
         if vidname:    
             database.update_vidname(dbvideo, vidname)
             if dbvideo in multi:
