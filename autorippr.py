@@ -145,8 +145,8 @@ def rip(config):
             if not config['force_db']:
                 disc_type = mkv_api.get_type()
             else:
-                if config['--force_db'] not in ['tv','movie', None]:
-                    raise ValueError('{} is not a valid DB.'.format(config['--force_db']))
+                if config['force_db'] not in ['tv','movie', None]:
+                    raise ValueError('{} is not a valid DB.'.format(config['force_db']))
                 else:
                     disc_type = config['force_db']
 
@@ -347,6 +347,8 @@ def extras(config):
     log = logger.Logger("Extras", config['debug'], config['silent'])
 
     fb = filebot.FileBot(config['debug'], config['silent'])
+    
+    ns = namesearch.NameSearch(config)
 
     dbvideos = database.next_video_to_filebot()
     
@@ -355,10 +357,10 @@ def extras(config):
     for dbvideo in dbvideos:
         vidname = fbsearch.database_search(dbvideo)
         if vidname:    
-            database.update_video(vidname)
+            database.update_vidname(dbvideo, vidname)
             if dbvideo in multi:
                 for video in multi:
-                    database.update_video(vidname)
+                    database.update_vidname(dbvideo, vidname)
 
     for dbvideo in dbvideos:
         if config['ForcedSubs']['enable']:
