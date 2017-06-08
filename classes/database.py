@@ -135,7 +135,7 @@ def search_video_name(invid):
 
 def get_most_recent():
     video = Videos.select().order_by(Videos.vidid.desc()).get()
-    return video.vidname
+    return video
 
 def multiple_titles(dbvideo):
     index = []
