@@ -355,14 +355,20 @@ def extras(config):
 
     dbvideos = database.next_video_to_filebot()
     
-    multi = database.get_mult_title_vids()
-    
+    multi_titles = database.get_mult_title_vids()
+    longest = None
+    for multi in multi_titles:
+        vidpath = os.path.join(dbvideo.path, dbvideo.filename)
+        runtime = get_runtime(vidpath)
+        if runtime > last:
+            
+        
     for dbvideo in dbvideos:
         vidname = ns.database_search(dbvideo)
-        if vidname:    
+        if vidname:
             database.update_vidname(dbvideo, vidname)
-            if dbvideo in multi:
-                for video in multi:
+            if dbvideo in multi_titles:
+                for video in multi_titles:
                     database.update_vidname(dbvideo, vidname)
 
     for dbvideo in dbvideos:

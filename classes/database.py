@@ -14,8 +14,8 @@ Copyright (c) 2012, Jason Millward
 
 import os
 from datetime import datetime
-
 from peewee import *
+from mediainfo import get_runtime
 import utils
 
 DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -153,8 +153,16 @@ def get_mult_title_vids():
     for dbvideo in Videos.select():
         if multiple_titles(dbvideo):
             multi.append(dbvideo)
-    return multi
-        
+    mset = list(map(lambda x: x.vidname.rstrip(), multi))
+    mdict = {}
+    sortkey = lambda vid: get_runtime(os.path.join(vid.path, vid.filename))
+    for name in mset:
+        videos = [vid for vid in Videos.select().where(Videos.vidname==name)]
+        videos.sort(key=sortkey)
+        mdict[name] = videos
+    return mdict
+                
+
 
 def insert_history(dbvideo, text, typeid=1):
     return History.create(
