@@ -61,6 +61,7 @@ import csv
 import yaml
 from classes import *
 from tendo import singleton
+from itertools import chain
 
 __version__ = "1.7.0"
 
@@ -352,24 +353,17 @@ def extras(config):
     fb = filebot.FileBot(config['debug'], config['silent'])
     
     ns = namesearch.NameSearch(config)
-
-    dbvideos = database.next_video_to_filebot()
     
-    multi_titles = database.get_mult_title_vids()
-    longest = None
-    for multi in multi_titles:
-        vidpath = os.path.join(dbvideo.path, dbvideo.filename)
-        runtime = get_runtime(vidpath)
-        if runtime > last:
+    dbvideo_lists = database.order_vids(database.next_video_to_filebot())
             
         
-    for dbvideo in dbvideos:
-        vidname = ns.database_search(dbvideo)
+    for dbvideo_list in dbvideo_lists:
+        vidname = ns.database_search(dbvideo[0])
         if vidname:
-            database.update_vidname(dbvideo, vidname)
-            if dbvideo in multi_titles:
-                for video in multi_titles:
-                    database.update_vidname(dbvideo, vidname)
+            for vid in dbvideo:
+                database.update_vidname(dbvideo, vidname)
+        
+    dbvideos = list(chain(*dbvideo_lists))
 
     for dbvideo in dbvideos:
         if config['ForcedSubs']['enable']:

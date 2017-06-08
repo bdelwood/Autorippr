@@ -148,19 +148,21 @@ def multiple_titles(dbvideo):
     else:
         return False
 
-def get_mult_title_vids(dbvideos):
+def order_vids(dbvideos):
     multi = []
+    ordered_vids = []
     for dbvideo in dbvideos:
         if multiple_titles(dbvideo):
             multi.append(dbvideo)
+        else:
+            ordered_vids.append([dbvideo])
     mset = list(map(lambda x: x.vidname.rstrip(), multi))
-    mdict = {}
     sortkey = lambda vid: get_runtime(os.path.join(vid.path, vid.filename))
     for name in mset:
         videos = [vid for vid in Videos.select().where(Videos.vidname==name)]
         videos.sort(key=sortkey)
-        mdict[name] = videos
-    return mdict
+        ordered_vids.append(videos)
+    return ordered_vids
                 
 
 
