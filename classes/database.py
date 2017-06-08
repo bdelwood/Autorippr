@@ -151,6 +151,7 @@ def multiple_titles(dbvideo):
 def order_vids(dbvideos):
     multi = []
     ordered_vids = []
+    mdict = {}
     for dbvideo in dbvideos:
         if multiple_titles(dbvideo):
             multi.append(dbvideo)
@@ -162,7 +163,9 @@ def order_vids(dbvideos):
         videos = [vid for vid in Videos.select().where(Videos.vidname==name)]
         videos.sort(key=sortkey)
         ordered_vids.append(videos)
-    return ordered_vids
+        mdict[name] = videos
+
+    return mdict
                 
 
 
