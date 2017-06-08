@@ -160,7 +160,7 @@ def order_vids(dbvideos):
     sortkey = lambda vid: get_runtime(os.path.join(vid.path, vid.filename))
     for name in mset:
         videos = [vid for vid in Videos.select().where(Videos.vidname==name)]
-        videos.sort(key=sortkey)
+        videos.sort(key=sortkey, reverse=True)
         ordered_vids.append(videos)
     return ordered_vids
                 
