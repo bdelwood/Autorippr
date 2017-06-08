@@ -148,9 +148,9 @@ def multiple_titles(dbvideo):
     else:
         return False
 
-def get_mult_title_vids():
+def get_mult_title_vids(dbvideos):
     multi = []
-    for dbvideo in Videos.select():
+    for dbvideo in dbvideos:
         if multiple_titles(dbvideo):
             multi.append(dbvideo)
     mset = list(map(lambda x: x.vidname.rstrip(), multi))
