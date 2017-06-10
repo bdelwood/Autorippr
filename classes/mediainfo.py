@@ -29,6 +29,16 @@ import shlex
 import subprocess
 
 def get_runtime(direc):
+    """
+        Finds the runtime of a mediadfile.
+        
+        Input:
+            direc (str): Directory to media file 
+            
+        Output:
+            float: Runtume in milliseconds
+            
+    """
     MEDIADIR = direc
     media_info = MediaInfo.parse(MEDIADIR)
     for track in media_info.tracks:

@@ -21,7 +21,9 @@ class FileBot(object):
 
     def __init__(self, debug, silent):
         self.log = logger.Logger("Filebot", debug, silent)
-
+#        self.form = config['filebot']['form']
+        
+        
     def rename(self, dbvideo, movePath, form, mult_title):
         """
             Renames video file upon successful database lookup
@@ -144,6 +146,10 @@ class FileBot(object):
             lines = results.split("\n")
             for line in lines:
                 self.log.debug(line.strip())
+                
+                if "login details" in line.lower():
+                    self.log.debug('Need to enter OpenSubtitle login information')
+                    checks -= 1
 
                 if "Processed" in line:
                     checks += 1

@@ -3,15 +3,25 @@
 Created on Fri Jun 02 14:22:11 2017
 
 @author: brodi
+
+
+Additional title search operations.
+
+    Dependencies:
+        Python (nonstandard): tmdbsimple -- requires API key from TMDB, see
+                              https://pypi.python.org/pypi/tmdbsimple for instructions
+                              wordsegment -- a natrual language word segmentation tool
 """
 
+
 import tmdbsimple as tmdb
-import re
 import wordsegment as ws
 import itertools
-import logger
+import re
 import os
+import logger
 from mediainfo import get_runtime
+
 
 
 
@@ -23,6 +33,16 @@ class NameSearch(object):
         self.log = logger.Logger('NameSearch', config['debug'], config['silent'])
 
     def database_search(self, dbvideo):
+        """
+            Wrapper function for querying the MovieDB given a Videos object. 
+            
+            Input:
+                dbvideo (Videos): Videos object from database
+                
+            Output:
+                If successful, returns queried name.
+                else, returns None, writes to log
+        """
         vidname = re.sub(r'S(\d)', '', dbvideo.vidname)
         vidname = re.sub(r'D(\d)', '', vidname)
         vidpath = os.path.join(dbvideo.path, dbvideo.filename)
@@ -41,6 +61,17 @@ class NameSearch(object):
             self.log.info("Search failed. Using name obtained from disc.")
     
     def query(self, q, dur):
+        """
+            Performs search on the MovieDB
+            
+            Input: 
+                q (str): Full title that needs to be matched
+                dur (float): duration of that title
+            
+            Output:
+                If query successful, matched movie title in the MovieDB.
+                If not, returns empty string.
+        """
         forward = []
         backward = []
         qf = q
@@ -77,6 +108,19 @@ class NameSearch(object):
         return ""
 
     def movie_search(self, qu, dur, tried):
+        """
+            Performs a search of the MovieDB based on a given title and runtime.
+            
+            Input:
+                qu (str): title to query
+                dur (float): runtime of title
+                tried (list): list of previously tried (and failed) queries
+                
+            Output:
+                If query successful, matched movie title in the MovieDB
+                If failed, returns mutated list of tried queries (list of 
+                the MovieDB ID numbers)
+        """
         response = self.search.movie(query=qu)
         for r in self.search.results:
             if r['id'] not in tried:
@@ -91,30 +135,3 @@ class NameSearch(object):
         return tried
     
     
-#MAybe recursion isnt rhe bes =t fo rthis job... need some way to record
-# searches that already failed
-#def query_recur(q, dur, forward = True):
-#    result = query(q, dur)
-#    print result
-#    if result and len(q.replace(" ","")) >= 4:
-#            print result
-#            return result
-#    if len(q.replace(" ","")) < 4:
-#            return ""
-#    else:
-#        if forward:
-#            print "here"
-#            print q[:-1]
-#            return query_recur(q[:-1], dur)
-#        else:
-#            print q[1:]
-#            return query_recur(q[1:], dur, forward = False)
-#        
-#def queries(q, dur):
-#    forward = query_recur(q, dur)
-#    if not forward:
-#        backward = query_recur(q, dur, forward = False)
-#        return backward
-#    return forward
-    
-        
