@@ -55,7 +55,7 @@ class NameSearch(object):
         candidate = self.query(vidname, runtime)
         if candidate:
             vidname = candidate
-            self.log.info("Name found: {}".format(vidname))
+            self.log.info("Name found: {}".format(vidname.encode('utf-8')))
             return vidname
         else:
             self.log.info("Search failed. Using name obtained from disc.")
