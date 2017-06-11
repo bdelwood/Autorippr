@@ -40,7 +40,7 @@ def get_runtime(direc):
             
     """
     MEDIADIR = direc
-    media_info = MediaInfo.parse(MEDIADIR.encode('unicode-escape'))
+    media_info = MediaInfo.parse(MEDIADIR)
     for track in media_info.tracks:
         data = track.to_data()
         if data['track_type'] == 'Video':
