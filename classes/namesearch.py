@@ -48,7 +48,7 @@ class NameSearch(object):
         vidpath = os.path.join(dbvideo.path, dbvideo.filename)
         self.log.debug("Attempting to find runtime.")
         if os.path.exists(vidpath):
-        runtime = get_runtime(vidpath)
+            runtime = get_runtime(vidpath)
             runtime = round(runtime/(60*10**3))
             self.log.info("Runtime found as {} minutes"
                            .format(runtime))
