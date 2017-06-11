@@ -47,18 +47,22 @@ class NameSearch(object):
         vidname = re.sub(r'D(\d)', '', vidname)
         vidpath = os.path.join(dbvideo.path, dbvideo.filename)
         self.log.debug("Attempting to find runtime.")
+        if os.path.exists(vidpath):
         runtime = get_runtime(vidpath)
-        runtime = round(runtime/(60*10**3))
-        self.log.info("Runtime found as {} minutes"
-                       .format(runtime))
-        self.log.info("Searching TheMovieDB for title matching runtime.")
-        candidate = self.query(vidname, runtime)
-        if candidate:
-            vidname = candidate
-            self.log.info("Name found: {}".format(vidname.encode('utf-8')))
-            return vidname
+            runtime = round(runtime/(60*10**3))
+            self.log.info("Runtime found as {} minutes"
+                           .format(runtime))
+            self.log.info("Searching TheMovieDB for title matching runtime.")
+            candidate = self.query(vidname, runtime)
+            if candidate:
+                vidname = candidate
+                self.log.info("Name found: {}".format(vidname.encode('utf-8')))
+                return vidname
+            else:
+                self.log.info("Search failed. Using name obtained from disc.")
         else:
-            self.log.info("Search failed. Using name obtained from disc.")
+            self.log.warn("{} does not exist".format(vidpath))
+            return None
     
     def query(self, q, dur):
         """
