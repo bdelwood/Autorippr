@@ -434,7 +434,10 @@ def extras(config):
 
 
             if 'extra' in config['notification']['notify_on_state']:
-                notify.extra_complete(dbvideo)
+                try:
+                    notify.extra_complete(dbvideo)
+                except ValueError: 
+                    log.debug("Pushover failed to send")
 
             log.debug("Attempting to delete {}".format(dbvideo.path))
 
