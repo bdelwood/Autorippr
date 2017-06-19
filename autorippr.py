@@ -454,7 +454,7 @@ def extras(config):
                 os.rename(os.path.join(dbvideo.path, dbvideo.filename), os.path.join(dbvideo.path, 
                       unicode(dbvideo.vidid) + dbvideo.filename))
             except OSError:
-                pass
+                log.debug("Race avoidance rename failed")
                 
                 
     else:
