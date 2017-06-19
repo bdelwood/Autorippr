@@ -52,7 +52,7 @@ Options:
     --force_db=(tv|movie)     Force use of the TheTVDB or TheMovieDB
 
 """
-
+import datetime
 import errno
 import os
 import subprocess
@@ -450,6 +450,8 @@ def extras(config):
 
         else:
             log.info("Rename failed")
+            os.rename(os.path.join(dbvideo.path, dbvideo.filename), os.path.join(dbvideo.path, dbvideo.filename)
+            + " " + datetime.datetime.now().strftime('%H:%M:%S'))
 
     else:
         log.info("No videos ready for filebot")
