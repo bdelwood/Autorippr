@@ -450,9 +450,13 @@ def extras(config):
 
         else:
             log.info("Rename failed")
-            os.rename(os.path.join(dbvideo.path, dbvideo.filename), os.path.join(dbvideo.path, 
+            try:
+                os.rename(os.path.join(dbvideo.path, dbvideo.filename), os.path.join(dbvideo.path, 
                       unicode(dbvideo.vidid) + dbvideo.filename))
-
+            except OSError:
+                pass
+                
+                
     else:
         log.info("No videos ready for filebot")
 
