@@ -358,10 +358,11 @@ def extras(config):
             
         
     for dbvideo_list in dbvideo_lists:
-        vidname = ns.database_search(dbvideo_list[0])
-        if vidname:
-            for vid in dbvideo_list:
-                database.update_vidname(vid, vidname)
+        if dbvideo_list[0].vidtype=="movie":
+            vidname = ns.database_search(dbvideo_list[0])
+            if vidname:
+                for vid in dbvideo_list:
+                    database.update_vidname(vid, vidname)
         
     dbvideos = list(chain(*dbvideo_lists))
 
